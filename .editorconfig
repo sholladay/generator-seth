@@ -1,0 +1,22 @@
+# Standardized configuration for your text editor.
+# See: http://EditorConfig.org
+
+# This is the default for the whole project.
+root = true
+
+# Unix-style newlines with a newline ending every file.
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+end_of_line = lf
+insert_final_newline = true
+
+# Markdown reserves trailing spaces for special use.
+[*.md]
+trim_trailing_whitespace = false
+
+# Respect npm's default spacing to make diffs from scripts less noisy.
+# [{package.json}]
+# indent_size = 2

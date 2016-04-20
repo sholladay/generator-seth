@@ -1,0 +1,30 @@
+{
+  "name": "<%= moduleName %>",
+  "version": "0.0.0",
+  "description": "<%= description %>",
+  "homepage": "<%= githubUrl %>",
+  "main": "index.js",
+  "author": {
+    "name": "<%= fullName %>",
+    "url": "<%= website %>",
+    "email": "<%= email %>"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:<%= username %>/<%= moduleName %>.git"
+  },
+  "bugs": {
+    "url": "<%= githubUrl %>/issues",
+    "email": "<%= email %>"
+  },
+  "license": "MPL-2.0",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+
+  ]
+}
