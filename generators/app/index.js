@@ -9,6 +9,7 @@ const
     // updateNotifier = require('update-notifier'),
     username = require('username'),
     fullname = require('fullname'),
+    firstName = require('first-name'),
     gitRemote = require('./git-remote'),
     gitDescription = require('git-description'),
     normalizeUrl = require('normalize-url'),
@@ -38,13 +39,6 @@ function nonEmpty(subject) {
 module.exports = class extends Base {
 
     prompting() {
-        const done = this.async();
-
-        // Say hello to the user.
-        this.log(yosay(
-            'Hey ' + chalk.bold.blue('Seth') +
-            '. Let\'s write some code.'
-        ));
 
         const
             prompts = [
@@ -149,26 +143,37 @@ module.exports = class extends Base {
                 }
             ];
 
-        this.prompt(prompts, (props) => {
+        const done = this.async();
 
-            // If the user did not bother creating the working directory
-            // just for us, then we should store everything in a new
-            // subdirectory to avoid puking on their workspace.
-            if (props.moduleName !== _s.slugify(this.appname)) {
-                this.log('Using new subdirectory for module.');
-                this.destinationRoot(props.moduleName);
-                this.customDir = this.destinationRoot();
-            }
+        firstName().then((casualName) => {
 
-            props.year = new Date().getUTCFullYear();
-            props.camelModuleName = _s.camelize(props.moduleName);
-            props.githubUrl = 'https://github.com/' + path.posix.join(
-                props.username, props.moduleName
-            );
+            // Say hello to the user.
+            this.log(yosay(
+                'Hey ' + chalk.bold.blue(casualName) +
+                '. Let\'s write some code.'
+            ));
 
-            this.props = props;
+            this.prompt(prompts, (props) => {
 
-            done();
+                // If the user did not bother creating the working directory
+                // just for us, then we should store everything in a new
+                // subdirectory to avoid puking on their workspace.
+                if (props.moduleName !== _s.slugify(this.appname)) {
+                    this.log('Using new subdirectory for module.');
+                    this.destinationRoot(props.moduleName);
+                    this.customDir = this.destinationRoot();
+                }
+
+                props.year = new Date().getUTCFullYear();
+                props.camelModuleName = _s.camelize(props.moduleName);
+                props.githubUrl = 'https://github.com/' + path.posix.join(
+                    props.username, props.moduleName
+                );
+
+                this.props = props;
+
+                done();
+            });
         });
     }
 

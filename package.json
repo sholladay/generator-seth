@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "chalk": "1.1.3",
+    "first-name": "0.1.0",
     "fullname": "3.0.0",
     "gh-got": "4.0.0",
     "git-description": "0.1.0",
