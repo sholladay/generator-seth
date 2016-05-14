@@ -30,9 +30,7 @@ function sentencify(str) {
 
 function nonEmpty(subject) {
     return function (input) {
-        return input.trim().length > 0
-            ? true
-            : `A ${subject} is required.`;
+        return (input.trim().length > 0) || `A ${subject} is required.`;
     };
 }
 
@@ -50,22 +48,23 @@ module.exports = class extends Base {
                         return _s.slugify(input);
                     },
                     validate : function (input) {
-                        const done = this.async();
+
                         const validity = validatePkgName(input);
-                        validity.validForNewPackages
-                            ? npmName(input)
-                                .then((isAvailable) => {
-                                    done(
-                                        isAvailable ||
-                                        'Name is already taken on npm.'
-                                    );
-                                })
-                                // Ignore errors because most likely it means
-                                // we are simply offline.
-                                .catch(() => {
-                                    done(true);
-                                })
-                            : done(validity.errors[0]);
+
+                        if (!validity.validForNewPackages) {
+                            return validity.errors[0];
+                        }
+
+                        return npmName(input).then(
+                            (isAvailable) => {
+                                return isAvailable || 'Name is already taken on npm.';
+                            },
+                            // Ignore errors because most likely it means
+                            // we are simply offline.
+                            () => {
+                                return true;
+                            }
+                        );
                     }
                 },
                 {
@@ -82,12 +81,7 @@ module.exports = class extends Base {
                     name    : 'username',
                     message : 'What is your username?',
                     store   : true,
-                    default : function () {
-                        const done = this.async();
-                        username().then((name) => {
-                            done(name);
-                        });
-                    },
+                    default : username,
                     filter : (input) => {
                         return input.toLowerCase();
                     },
@@ -97,12 +91,7 @@ module.exports = class extends Base {
                     name    : 'fullName',
                     message : 'What is your full name?',
                     store   : true,
-                    default : function () {
-                        const done = this.async();
-                        fullname().then((name) => {
-                            done(name);
-                        });
-                    },
+                    default : fullname,
                     validate : nonEmpty('name')
                 },
                 {
@@ -120,9 +109,7 @@ module.exports = class extends Base {
                     name    : 'website',
                     message : 'What is your web URL?',
                     store   : true,
-                    filter  : (input) => {
-                        return normalizeUrl(input);
-                    },
+                    filter  : normalizeUrl,
                     validate : nonEmpty('website')
                 },
                 {
@@ -143,9 +130,7 @@ module.exports = class extends Base {
                 }
             ];
 
-        const done = this.async();
-
-        firstName().then((casualName) => {
+        return firstName().then((casualName) => {
 
             // Say hello to the user.
             this.log(yosay(
@@ -153,7 +138,7 @@ module.exports = class extends Base {
                 '. Let\'s write some code.'
             ));
 
-            this.prompt(prompts, (props) => {
+            return this.prompt(prompts).then((props) => {
 
                 // If the user did not bother creating the working directory
                 // just for us, then we should store everything in a new
@@ -171,8 +156,6 @@ module.exports = class extends Base {
                 );
 
                 this.props = props;
-
-                done();
             });
         });
     }
@@ -186,9 +169,11 @@ module.exports = class extends Base {
             description = props.description;
 
         this.spawnCommand('git', ['init', '--quiet']).on('close', (code) => {
+
             if (code) {
                 throw new Error(`Unable to init git repo. Exit code ${code}.`);
             }
+
             const promises = [
                 gitRemote.setOrigin(
                     `git@github.com:${props.username}/${moduleName}.git`

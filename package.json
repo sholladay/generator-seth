@@ -31,12 +31,12 @@
     "fullname": "3.0.0",
     "gh-got": "4.0.0",
     "git-description": "0.1.0",
-    "normalize-url": "1.4.1",
+    "normalize-url": "1.5.2",
     "npm-name": "3.0.0",
     "underscore.string": "3.3.4",
     "username": "2.1.0",
     "validate-npm-package-name": "2.2.2",
-    "yeoman-generator": "0.22.6",
+    "yeoman-generator": "0.23.3",
     "yosay": "1.1.1"
   },
   "keywords": [
