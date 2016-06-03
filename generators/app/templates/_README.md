@@ -10,13 +10,14 @@
 
 ## Install
 
-````sh
+```sh
 npm install <%= moduleName %> --save
-````
+```
 
 ## Usage
 
 Get it into your program.
+
 ```js
 const <%= camelModuleName %> = require('<%= moduleName %>');
 ```

@@ -4,38 +4,32 @@ const
     exec = require('child_process').exec,
     ghGot = require('gh-got');
 
-function initRepo() {
-    return new Promise((resolve) => {
-            exec('git init --quiet', (err) => {
-                if (err) {
-                    throw err;
-                }
-                resolve();
-            });
+function git(command) {
+    return new Promise((resolve, reject) => {
+        exec('git ' + command, (err) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
         });
+    });
+}
+
+function initRepo() {
+    return git('init --quiet');
 }
 
 function setOrigin(url) {
-    return new Promise((resolve) => {
-        exec(`git remote add origin ${url}`, (err) => {
-            if (!err) {
-                resolve();
-                return;
-            }
+
+    return git(`remote add origin "${url}"`).catch((err) => {
             // Error code 128 is experienced when the remote is already set.
             if (err.code === 128) {
-                exec(`git remote set-url origin ${url}`, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    resolve();
-                });
-                return;
+                return git(`remote set-url origin "${url}"`);
             }
 
             throw err;
         });
-    });
 }
 
 function create(name, token, option) {
@@ -52,7 +46,7 @@ function create(name, token, option) {
             // Error code 422 is experienced when the repository already exists.
             if (err.statusCode === 422) {
                 throw new Error(
-                    `A repository named \"${name}\" already exists.`
+                    `A repository named "${name}" already exists.`
                 );
             }
 

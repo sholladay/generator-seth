@@ -29,7 +29,7 @@ function sentencify(str) {
 }
 
 function nonEmpty(subject) {
-    return function (input) {
+    return (input) => {
         return (input.trim().length > 0) || `A ${subject} is required.`;
     };
 }
@@ -44,10 +44,10 @@ module.exports = class extends Base {
                     name    : 'moduleName',
                     message : 'What shall we name your module?',
                     default : this.appname.replace(/\s/g, '-'),
-                    filter  : (input) => {
+                    filter(input) {
                         return _s.slugify(input);
                     },
-                    validate : function (input) {
+                    validate(input) {
 
                         const validity = validatePkgName(input);
 
@@ -71,7 +71,7 @@ module.exports = class extends Base {
                     name    : 'description',
                     message : 'How would you describe it?',
                     filter  : sentencify,
-                    validate : (input) => {
+                    validate(input) {
                         return input.trim().length > 5 && input.includes(' ')
                             ? true
                             : 'Oh come on, be creative.';
@@ -82,7 +82,7 @@ module.exports = class extends Base {
                     message : 'What is your username?',
                     store   : true,
                     default : username,
-                    filter : (input) => {
+                    filter(input) {
                         return input.toLowerCase();
                     },
                     validate : nonEmpty('username')
@@ -99,7 +99,7 @@ module.exports = class extends Base {
                     message : 'What is your e-mail?',
                     store   : true,
                     default : this.user.git.email(),
-                    validate : (input) => {
+                    validate(input) {
                         return input.trim().length > 0
                             ? input.includes('@') || 'You forgot the @ sign.'
                             : 'An e-mail address is required.';
@@ -124,7 +124,7 @@ module.exports = class extends Base {
                     // TODO: Report to Inquirer, this ought to be encrypted.
                     store    : true,
                     validate : nonEmpty('access token'),
-                    when : (answers) => {
+                    when(answers) {
                         return answers.createRemote;
                     }
                 }
@@ -183,13 +183,9 @@ module.exports = class extends Base {
 
             if (props.createRemote) {
                 promises.push(
-                    gitRemote.create(
-                        moduleName,
-                        props.accessToken,
-                        {
-                            description
-                        }
-                    )
+                    gitRemote.create(moduleName, props.accessToken, {
+                        description
+                    })
                 );
             }
 
