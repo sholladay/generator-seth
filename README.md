@@ -16,10 +16,27 @@ npm install yo generator-seth --global
 
 ## Usage
 
-Create your new project.
+Create your new project with [yo](https://github.com/yeoman/yo).
+
 ```sh
 yo seth
 ```
+
+You can tweak the behavior with command line options.
+
+```sh
+$ yo seth --help
+
+  Usage:
+    yo seth [options]
+
+  Options:
+    --help          # Print the generator's options and usage
+    --skip-cache    # Do not remember prompt answers             Default: false
+    --skip-install  # Do not automatically install dependencies  Default: false
+```
+
+When creating your project, you will be prompted for details.
 
 ## Contributing
 

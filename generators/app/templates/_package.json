@@ -1,8 +1,8 @@
 {
-  "name": "<%= moduleName %>",
+  "name": "<%= pkgName %>",
   "version": "0.0.0",
   "description": "<%= description %>",
-  "homepage": "<%= githubUrl %>",
+  "homepage": "<%= repoUrl %>",
   "main": "index.js",
   "author": {
     "name": "<%= fullName %>",
@@ -10,21 +10,31 @@
     "email": "<%= email %>"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:<%= username %>/<%= moduleName %>.git"
+    "url": "git@github.com:<%= username %>/<%= pkgName %>.git"
   },
   "bugs": {
-    "url": "<%= githubUrl %>/issues",
+    "url": "<%= repoUrl %>/issues",
     "email": "<%= email %>"
+  },
+  "engines": {
+    "node": ">=6"
   },
   "license": "MPL-2.0",
   "files": [
     "index.js"
   ],
+  "devDependencies": {
+    "eslint-config-tidy": "0.3.0",
+    "xo": "0.16.0"
+  },
   "keywords": [
 
-  ]
+  ],
+  "xo": {
+    "extend": "tidy"
+  }
 }

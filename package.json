@@ -3,14 +3,13 @@
   "version": "0.1.1",
   "description": "Project scaffolding for open source.",
   "homepage": "https://github.com/sholladay/generator-seth",
-  "main": "index.js",
   "author": {
     "name": "Seth Holladay",
     "url": "http://seth-holladay.com",
     "email": "me@seth-holladay.com"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo"
   },
   "repository": {
     "type": "git",
@@ -19,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/sholladay/generator-seth/issues",
     "email": "me@seth-holladay.com"
+  },
+  "engines": {
+    "node": ">=6"
   },
   "license": "MPL-2.0",
   "files": [
@@ -34,15 +36,26 @@
     "normalize-url": "1.5.2",
     "npm-name": "3.0.0",
     "underscore.string": "3.3.4",
+    "update-notifier": "1.0.2",
     "username": "2.1.0",
     "validate-npm-package-name": "2.2.2",
     "yeoman-generator": "0.23.3",
     "yosay": "1.1.1"
+  },
+  "devDependencies": {
+    "eslint-config-tidy": "0.3.0",
+    "xo": "0.16.0"
   },
   "keywords": [
     "yeoman-generator",
     "setup",
     "set up",
     "tooling"
-  ]
+  ],
+  "xo": {
+    "extend": "tidy",
+    "ignore": [
+      "generators/app/templates/_index.js"
+    ]
+  }
 }
