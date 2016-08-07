@@ -1,6 +1,6 @@
-# generator-seth
+# generator-seth [![Build status for generator-seth on Circle CI.](https://img.shields.io/circleci/project/sholladay/generator-seth/master.svg "Circle Build Status")](https://circleci.com/gh/sholladay/generator-seth "Generator Seth Builds")
 
-> Project scaffolding for open source.
+> Set up your projects.
 
 ## Why?
 

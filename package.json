@@ -1,7 +1,7 @@
 {
   "name": "generator-seth",
   "version": "0.2.0",
-  "description": "Project scaffolding for open source.",
+  "description": "Set up your projects.",
   "homepage": "https://github.com/sholladay/generator-seth",
   "author": {
     "name": "Seth Holladay",
@@ -47,10 +47,19 @@
     "xo": "0.16.0"
   },
   "keywords": [
+    "module",
+    "package",
+    "tooling",
+    "project",
+    "template",
+    "boilerplate",
+    "scaffold",
+    "scaffolding",
+    "generator",
     "yeoman-generator",
+    "init",
     "setup",
-    "set up",
-    "tooling"
+    "set up"
   ],
   "xo": {
     "extend": "tidy",
