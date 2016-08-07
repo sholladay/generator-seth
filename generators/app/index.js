@@ -17,18 +17,22 @@ const gitRemote = require('./git-remote');
 
 require('update-notifier')({ pkg }).notify();
 
+const capitalize = (input) => {
+    return input[0].toUpperCase() + input.substring(1);
+};
+
 const sentencify = (input) => {
     if (!input) {
         return input;
     }
 
-    const sentence = input[0].toUpperCase() + input.slice(1);
+    const sentence = capitalize(input);
 
     return sentence.endsWith('.') ? sentence : sentence + '.';
 };
 
 const titleize = (input) => {
-    return input[0].toUpperCase() + input.slice(1).replace(/-(.)/g, (match, letter) => {
+    return capitalize(input).replace(/-(.)/g, (match, letter) => {
         return ' ' + letter.toUpperCase();
     });
 };
@@ -203,9 +207,10 @@ module.exports = class extends Base {
         mv('__editorconfig', '.editorconfig');
         mv('__gitattributes', '.gitattributes');
         mv('__gitignore', '.gitignore');
-        mv('_LICENSE', 'LICENSE');
         mv('_CONTRIBUTING.md', 'CONTRIBUTING.md');
+        mv('_LICENSE', 'LICENSE');
         mv('_README.md', 'README.md');
+        mv('_circle.yml', 'circle.yml');
         mv('_index.js', 'index.js');
         mv('_package.json', 'package.json');
     }
