@@ -35,6 +35,7 @@
     "git-description": "^0.1.0",
     "normalize-url": "^1.5.2",
     "npm-name": "^3.0.0",
+    "read-pkg-up": "^1.0.1",
     "underscore.string": "^3.3.4",
     "update-notifier": "^1.0.2",
     "username": "^2.1.0",

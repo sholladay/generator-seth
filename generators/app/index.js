@@ -12,7 +12,7 @@ const normalizeUrl = require('normalize-url');
 const npmName = require('npm-name');
 const validatePkgName = require('validate-npm-package-name');
 const { slugify, camelize } = require('underscore.string');
-const pkg = require('../../package.json');
+const { pkg } = require('read-pkg-up').sync({ cwd : __dirname });
 const gitRemote = require('./git-remote');
 
 require('update-notifier')({ pkg }).notify();
@@ -141,31 +141,32 @@ module.exports = class extends Base {
             ));
 
             return this.prompt(prompts).then((answer) => {
+                const { pkgName } = answer;
                 // If the user did not bother creating the working directory
                 // just for us, then we should store everything in a new
                 // subdirectory to avoid puking on their workspace.
-                if (answer.pkgName !== slugify(this.appname)) {
+                if (pkgName !== slugify(this.appname)) {
                     this.log('Using new subdirectory for module.');
-                    this.destinationRoot(answer.pkgName);
+                    this.destinationRoot(pkgName);
                     this.customDir = this.destinationRoot();
                 }
 
                 this.props = Object.assign({}, answer, {
                     year      : new Date().getUTCFullYear(),
-                    jsPkgName : camelize(answer.pkgName),
+                    jsPkgName : camelize(pkgName),
                     repoUrl   : 'https://github.com/' + path.posix.join(
-                        answer.username, answer.pkgName
+                        answer.username, pkgName
                     ),
-                    pkgTitle  : titleize(answer.pkgName)
+                    pkgTitle  : titleize(pkgName)
                 });
             });
         });
     }
 
     git() {
-        const props = this.props;
-        const done = this.async();
+        const { props } = this;
         const { pkgName, description } = props;
+        const done = this.async();
 
         this.spawnCommand('git', ['init', '--quiet']).on('close', (code) => {
             if (code) {
