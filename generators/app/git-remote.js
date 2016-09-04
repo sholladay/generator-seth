@@ -30,13 +30,13 @@ const setOrigin = (url) => {
 const create = (name, token, option) => {
     return ghGot.post('user/repos', {
         token,
-        body : JSON.stringify({
+        body : {
             name,
             description : option.description,
             homepage    : option.homepage,
             // eslint-disable-next-line camelcase
             has_wiki    : false
-        })
+        }
     })
         .catch((err) => {
             // Error code 422 is experienced when the repository already exists.
