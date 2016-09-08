@@ -22,6 +22,12 @@ Get it into your program.
 const <%= jsPkgName %> = require('<%= pkgName %>');
 ```
 
+## API
+
+### <%= jsPkgName %>()
+
+It throws an error and is not ready yet.
+
 ## Contributing
 
 See our [contributing guidelines](<%= repoUrl %>/blob/master/CONTRIBUTING.md "The guidelines for participating in this project.") for more details.
