@@ -35,7 +35,7 @@
     "git-description": "^0.1.0",
     "normalize-url": "^1.5.2",
     "npm-name": "^3.0.0",
-    "read-pkg-up": "^1.0.1",
+    "read-pkg-up": "^2.0.0",
     "underscore.string": "^3.3.4",
     "update-notifier": "^1.0.2",
     "username": "^2.1.0",
@@ -44,8 +44,8 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "eslint-config-tidy": "^0.3.0",
-    "xo": "^0.16.0"
+    "eslint-config-tidy": "^0.4.0",
+    "xo": "^0.17.0"
   },
   "keywords": [
     "module",
