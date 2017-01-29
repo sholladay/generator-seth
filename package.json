@@ -9,7 +9,7 @@
     "email": "me@seth-holladay.com"
   },
   "scripts": {
-    "test": "xo"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -39,12 +39,16 @@
     "update-notifier": "^1.0.2",
     "username": "^2.1.0",
     "validate-npm-package-name": "^2.2.2",
-    "yeoman-generator": "^0.24.1",
+    "yeoman-generator": "1.0.1",
     "yosay": "^1.1.1"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
     "eslint-config-tidy": "^0.4.0",
-    "xo": "^0.17.0"
+    "pify": "^2.3.0",
+    "xo": "^0.17.0",
+    "yeoman-assert": "^2.2.2",
+    "yeoman-test": "^1.6.0"
   },
   "keywords": [
     "module",
@@ -68,7 +72,9 @@
   "xo": {
     "extend": "tidy",
     "ignore": [
-      "app/templates/_index.js"
+      "app/templates/_index.js",
+      "app/templates/_test.js",
+      "app/templates/_cli.js"
     ]
   }
 }

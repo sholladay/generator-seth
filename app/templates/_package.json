@@ -10,7 +10,7 @@
     "email": "<%= email %>"
   },
   "scripts": {
-    "test": "xo"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -23,16 +23,23 @@
   "engines": {
     "node": ">=6"
   },
-  "license": "MPL-2.0",
+  "license": "MPL-2.0",<% if (cli) { %>
+  "bin": "cli.js",<% } %>
   "files": [
-    "index.js"
-  ],
+    "index.js"<% if (cli) { %>,
+    "cli.js"<% } %>
+  ],<% if (cli) { %>
+  "dependencies": {
+    "meow": "^3.7.0"
+  },<% } %>
   "devDependencies": {
+    "ava": "^0.17.0",
     "eslint-config-tidy": "^0.4.0",
     "xo": "^0.17.0"
   },
   "keywords": [
-
+    <% if (cli) { %>"cli-app",
+    "cli"<% } %>
   ],
   "xo": {
     "extend": "tidy"

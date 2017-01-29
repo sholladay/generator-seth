@@ -1,7 +1,8 @@
 'use strict';
 
 const path = require('path');
-const { Base } = require('yeoman-generator');
+const stream = require('stream');
+const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const username = require('username');
@@ -22,13 +23,7 @@ const capitalize = (input) => {
 };
 
 const sentencify = (input) => {
-    if (!input) {
-        return input;
-    }
-
-    const sentence = capitalize(input);
-
-    return sentence.endsWith('.') ? sentence : sentence + '.';
+    return input && (capitalize(input) + (input.endsWith('.') ? '' : '.'));
 };
 
 const titleize = (input) => {
@@ -43,7 +38,50 @@ const nonEmpty = (subject) => {
     };
 };
 
-module.exports = class extends Base {
+// All template filenames are prefixed with at least one underscore so that they
+// are ignored by tools that care about special files. We remove or replace the
+// prefix when we are ready to give the file special meaning.
+const filePrefix = '_';
+const unprefix = (name) => {
+    const hiddenFilePrefix = '__';
+    return name.startsWith(hiddenFilePrefix) ?
+        name.replace(hiddenFilePrefix, '.') :
+        name.replace(filePrefix, '');
+};
+
+module.exports = class extends Generator {
+    constructor(...args) {
+        super(...args);
+
+        this.option('cli', {
+            type : Boolean,
+            desc : 'Add a CLI'
+        });
+        this.option('username', {
+            type : String,
+            desc : 'Author\'s online handle'
+        });
+        this.option('fullName', {
+            type : String,
+            desc : 'Author\'s legal name'
+        });
+        this.option('email', {
+            type : String,
+            desc : 'Author\'s contact address'
+        });
+        this.option('website', {
+            type : String,
+            desc : 'Author\'s website'
+        });
+        this.option('createRemote', {
+            type : Boolean,
+            desc : 'Create a repo on GitHub'
+        });
+        this.option('accessToken', {
+            type : String,
+            desc : 'GitHub API token to create a repo'
+        });
+    }
     prompting() {
         const prompts = [
             {
@@ -75,9 +113,17 @@ module.exports = class extends Base {
                 message : 'How would you describe it?',
                 filter  : sentencify,
                 validate(input) {
-                    return input.trim().length > 5 && input.includes(' ') ?
-                        true :
+                    return (input.trim().length > 5 && input.includes(' ')) ||
                         'Oh come on, be creative.';
+                }
+            },
+            {
+                name    : 'cli',
+                message : 'Do you need a CLI?',
+                type    : 'confirm',
+                default : Boolean(this.options.cli),
+                when    : () => {
+                    return typeof this.options.cli === 'undefined';
                 }
             },
             {
@@ -88,14 +134,20 @@ module.exports = class extends Base {
                 filter(input) {
                     return input.toLowerCase();
                 },
-                validate : nonEmpty('username')
+                validate : nonEmpty('username'),
+                when     : () => {
+                    return !this.options.username;
+                }
             },
             {
                 name     : 'fullName',
                 message  : 'What is your full name?',
                 store    : true,
                 default  : fullname,
-                validate : nonEmpty('name')
+                validate : nonEmpty('name'),
+                when     : () => {
+                    return !this.options.fullName;
+                }
             },
             {
                 name    : 'email',
@@ -106,6 +158,9 @@ module.exports = class extends Base {
                     return input.trim().length > 0 ?
                         (input.includes('@') || 'You forgot the @ sign.') :
                         'An e-mail address is required.';
+                },
+                when : () => {
+                    return !this.options.email;
                 }
             },
             {
@@ -113,13 +168,19 @@ module.exports = class extends Base {
                 message  : 'What is your web URL?',
                 store    : true,
                 filter   : normalizeUrl,
-                validate : nonEmpty('website')
+                validate : nonEmpty('website'),
+                when     : () => {
+                    return !this.options.website;
+                }
             },
             {
                 name    : 'createRemote',
                 message : 'Create remote repository?',
                 type    : 'confirm',
-                default : false
+                default : Boolean(this.options.createRemote),
+                when    : () => {
+                    return typeof this.options.createRemote === 'undefined';
+                }
             },
             {
                 name     : 'accessToken',
@@ -128,18 +189,15 @@ module.exports = class extends Base {
                 // TODO: Report to Inquirer, this ought to be encrypted.
                 store    : true,
                 validate : nonEmpty('access token'),
-                when(answers) {
-                    return answers.createRemote;
+                when     : (answer) => {
+                    return answer.createRemote && !this.options.accessToken;
                 }
             }
         ];
 
         return firstName().then((casualName) => {
             // Say hello to the user.
-            this.log(yosay(
-                'Hey ' + chalk.bold.blue(casualName) +
-                '. Let\'s write some code.'
-            ));
+            this.log(yosay(`Hey ${chalk.bold.blue(casualName)}. Let's write some code.`));
 
             return this.prompt(prompts).then((answer) => {
                 const { pkgName } = answer;
@@ -152,7 +210,7 @@ module.exports = class extends Base {
                     this.customDir = this.destinationRoot();
                 }
 
-                this.props = Object.assign({}, answer, {
+                this.props = Object.assign({}, this.options, answer, {
                     year      : new Date().getUTCFullYear(),
                     jsPkgName : camelize(pkgName),
                     repoUrl   : 'https://github.com/' + path.posix.join(
@@ -169,6 +227,7 @@ module.exports = class extends Base {
         const { pkgName, description } = props;
         const done = this.async();
 
+        // TODO: Promisify.
         this.spawnCommand('git', ['init', '--quiet']).on('close', (code) => {
             if (code) {
                 throw new Error(`Unable to init git repo. Exit code ${code}.`);
@@ -196,25 +255,23 @@ module.exports = class extends Base {
     }
 
     writing() {
-        const mv = (from, to) => {
-            this.fs.move(this.destinationPath(from), this.destinationPath(to));
-        };
+        const templates = [this.sourceRoot()];
+        if (!this.props.cli) {
+            templates.push('!**/_cli.js');
+        }
 
-        this.fs.copyTpl(
-            this.sourceRoot(),
-            this.destinationRoot(),
-            this.props
-        );
+        this.registerTransformStream(new stream.Transform({
+            objectMode : true,
+            transform(file, encoding, callback) {
+                // Only process template files.
+                if (file.basename.startsWith(filePrefix)) {
+                    file.path = path.join(file.dirname, unprefix(file.basename));
+                }
+                callback(null, file);
+            }
+        }));
 
-        mv('__editorconfig', '.editorconfig');
-        mv('__gitattributes', '.gitattributes');
-        mv('__gitignore', '.gitignore');
-        mv('_CONTRIBUTING.md', 'CONTRIBUTING.md');
-        mv('_LICENSE', 'LICENSE');
-        mv('_README.md', 'README.md');
-        mv('_circle.yml', 'circle.yml');
-        mv('_index.js', 'index.js');
-        mv('_package.json', 'package.json');
+        this.fs.copyTpl(templates, this.destinationRoot(), this.props);
     }
 
     install() {

@@ -6,6 +6,7 @@ node_modules
 build
 latest-build
 report
+temp
 
 # Log data is unique to each developer.
 log
