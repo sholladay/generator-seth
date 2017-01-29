@@ -213,11 +213,11 @@ module.exports = class extends Generator {
                 this.props = Object.assign({}, this.options, answer, {
                     year      : new Date().getUTCFullYear(),
                     jsPkgName : camelize(pkgName),
-                    repoUrl   : 'https://github.com/' + path.posix.join(
-                        answer.username, pkgName
-                    ),
                     pkgTitle  : titleize(pkgName)
                 });
+                this.props.repoUrl = 'https://github.com/' + path.posix.join(
+                    this.props.username, pkgName
+                );
             });
         });
     }
