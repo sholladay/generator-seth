@@ -13,7 +13,7 @@ const normalizeUrl = require('normalize-url');
 const npmName = require('npm-name');
 const validatePkgName = require('validate-npm-package-name');
 const { slugify, camelize } = require('underscore.string');
-const { pkg } = require('read-pkg-up').sync({ cwd : __dirname });
+const pkg = require('../package.json');
 const gitRemote = require('./git-remote');
 
 require('update-notifier')({ pkg }).notify();
@@ -71,11 +71,11 @@ module.exports = class extends Generator {
         });
         this.option('website', {
             type : String,
-            desc : 'Author\'s website'
+            desc : 'Author\'s website URL'
         });
         this.option('createRemote', {
             type : Boolean,
-            desc : 'Create a repo on GitHub'
+            desc : 'Create a GitHub repository'
         });
         this.option('accessToken', {
             type : String,
@@ -205,7 +205,6 @@ module.exports = class extends Generator {
                 // just for us, then we should store everything in a new
                 // subdirectory to avoid puking on their workspace.
                 if (pkgName !== slugify(this.appname)) {
-                    this.log('Using new subdirectory for module.');
                     this.destinationRoot(pkgName);
                     this.customDir = this.destinationRoot();
                 }
