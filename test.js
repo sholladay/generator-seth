@@ -10,10 +10,10 @@ let generator;
 const mockPrompt = (answer) => {
     return helpers.mockPrompt(generator, Object.assign(
         {
-            pkgName     : 'test',
-            description : 'test',
-            username    : 'test',
-            website     : 'test.com',
+            pkgName     : 'my-pkg',
+            description : 'my description',
+            username    : 'meee',
+            website     : 'example.com',
             cli         : false
         },
         answer
@@ -73,5 +73,5 @@ test.serial('prompts for description', async () => {
 
     assert.fileContent('.git/description', 'awesome description\n');
     assert.fileContent('package.json', '"description": "awesome description",\n');
-    assert.fileContent('readme.md', '> awesome description\n');
+    assert.fileContent('README.md', '> awesome description\n');
 });

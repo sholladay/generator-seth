@@ -2,17 +2,5 @@
 # can benefit from machine-specific compiling, etc.
 node_modules
 
-# Build artifacts are unique to each developer.
-build
-latest-build
-report
+# Temporary directory created as a side effect of running tests.
 temp
-
-# Log data is unique to each developer.
-log
-
-# Operating system data is unique to each developer.
-.DS_Store
-
-# IDE data is unique to each developer.
-.idea

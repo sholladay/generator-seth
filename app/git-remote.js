@@ -39,11 +39,16 @@ const create = (name, token, option) => {
         }
     })
         .catch((err) => {
-            // Error code 422 is experienced when the repository already exists.
-            if (err.statusCode === 422) {
-                throw new Error(
-                    `A repository named "${name}" already exists.`
-                );
+            // Make validation errors more friendly.
+            if (err.response && err.response.body && err.response.body.errors) {
+                const alreadyExists = err.response.body.errors.some((x) => {
+                    return x.resource === 'Repository' && x.field === 'name' &&
+                        x.message === 'name already exists on this account';
+                });
+
+                if (alreadyExists) {
+                    throw new Error(`A repository named "${name}" already exists.`);
+                }
             }
 
             throw err;

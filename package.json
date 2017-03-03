@@ -42,7 +42,7 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.1",
     "eslint-config-tidy": "^0.4.0",
     "pify": "^2.3.0",
     "xo": "^0.17.0",
