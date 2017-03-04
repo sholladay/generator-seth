@@ -27,8 +27,6 @@
 *.handlebars  text
 *.hbs         text
 *.hbt         text
-*.jade        text
-*.haml        text
 *.dot         text
 *.tmpl        text
 *.template    text
@@ -36,38 +34,26 @@
 
 # Documentation.
 *.md          text
-*.MD          text
 *.txt         text
-*.TXT         text
 *.doc         diff
-*.DOC         diff
 *.docx        diff
-*.DOCX        diff
 *.dot         diff
-*.DOT         diff
 *.rtf         diff
-*.RTF         diff
 *.pdf         diff
-*.PDF         diff
-CONTRIBUTING  text
-CONTRIBUTORS  text
 README        text
 LICENSE       text
 LICENSES      text
 AUTHOR        text
 AUTHORS       text
+CONTRIBUTING  text
+CONTRIBUTORS  text
 
 # Configuration files.
 .gitignore      text
 .gitattributes  text
-.csslintrc      text
 .editorconfig   text
 
 # Leave line endings alone for these...
-
-# Compiled code and system files.
-*.pyc  binary
-*.war  binary
 
 # Multimedia and compressed storage.
 *.png   binary
