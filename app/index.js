@@ -186,7 +186,7 @@ module.exports = class extends Generator {
                 name     : 'accessToken',
                 message  : 'Enter your access token:',
                 type     : 'password',
-                // TODO: Report to Inquirer, this ought to be encrypted.
+                // TODO: Report to Yeoman, this ought to be encrypted.
                 store    : true,
                 validate : nonEmpty('access token'),
                 when     : (answer) => {
