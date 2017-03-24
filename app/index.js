@@ -15,6 +15,7 @@ const validatePkgName = require('validate-npm-package-name');
 const { slugify, camelize } = require('underscore.string');
 const pkg = require('../package.json');
 const gitRemote = require('./git-remote');
+const git = require('./git');
 
 require('update-notifier')({ pkg }).notify();
 
@@ -82,30 +83,29 @@ module.exports = class extends Generator {
             desc : 'GitHub API token to create a repo'
         });
     }
-    prompting() {
+    async prompting() {
         const prompts = [
             {
                 name    : 'pkgName',
                 message : 'What shall we name your module?',
                 default : this.appname.replace(/\s/g, '-'),
                 filter  : slugify,
-                validate(input) {
+                async validate(input) {
                     const validity = validatePkgName(input);
 
                     if (!validity.validForNewPackages) {
                         return validity.errors[0];
                     }
 
-                    return npmName(input).then(
-                        (isAvailable) => {
-                            return isAvailable || 'Name is already taken on npm.';
-                        },
+                    try {
+                        const isAvailable = await npmName(input);
+                        return isAvailable || 'Name is already taken on npm.';
+                    }
+                    catch (err) {
                         // Ignore errors because most likely it means
                         // we are simply offline.
-                        () => {
-                            return true;
-                        }
-                    );
+                        return true;
+                    }
                 }
             },
             {
@@ -183,62 +183,46 @@ module.exports = class extends Generator {
             }
         ];
 
-        return firstName().then((casualName) => {
-            // Say hello to the user.
-            this.log(yosay(`Hey ${chalk.bold.blue(casualName)}. Let's write some code.`));
+        const casualName = await firstName();
+        // Say hello to the user.
+        this.log(yosay(`Hey ${chalk.bold.blue(casualName)}. Let's write some code.`));
 
-            return this.prompt(prompts).then((answer) => {
-                const { pkgName } = answer;
-                // If the user did not bother creating the working directory
-                // just for us, then we should store everything in a new
-                // subdirectory to avoid puking on their workspace.
-                if (pkgName !== slugify(this.appname)) {
-                    this.destinationRoot(pkgName);
-                    this.customDir = this.destinationRoot();
-                }
+        const answer = await this.prompt(prompts);
+        const { pkgName } = answer;
 
-                this.props = Object.assign({}, this.options, answer, {
-                    year      : new Date().getUTCFullYear(),
-                    jsPkgName : camelize(pkgName),
-                    pkgTitle  : titleize(pkgName)
-                });
-                this.props.repoUrl = 'https://github.com/' + path.posix.join(
-                    this.props.username, pkgName
-                );
-            });
+        // If the user did not bother creating the working directory
+        // just for us, then we should store everything in a new
+        // subdirectory to avoid puking on their workspace.
+        if (pkgName !== slugify(this.appname)) {
+            this.destinationRoot(pkgName);
+            this.customDir = this.destinationRoot();
+        }
+
+        this.props = Object.assign({}, this.options, answer, {
+            year      : new Date().getUTCFullYear(),
+            jsPkgName : camelize(pkgName),
+            pkgTitle  : titleize(pkgName)
         });
+        this.props.repoUrl = 'https://github.com/' + path.posix.join(
+            this.props.username, pkgName
+        );
     }
 
-    git() {
+    async git() {
         const { props } = this;
         const { pkgName, description } = props;
-        const done = this.async();
 
-        // TODO: Promisify.
-        this.spawnCommand('git', ['init', '--quiet']).on('close', (code) => {
-            if (code) {
-                throw new Error(`Unable to init git repo. Exit code ${code}.`);
-            }
+        await git('init --quiet');
+        await Promise.all([
+            gitRemote.setOrigin(`git@github.com:${props.username}/${pkgName}.git`),
+            gitDescription.set(description)
+        ]);
 
-            const promises = [
-                gitRemote.setOrigin(
-                    `git@github.com:${props.username}/${pkgName}.git`
-                ),
-                gitDescription.set(description)
-            ];
-
-            if (props.createRemote) {
-                promises.push(
-                    gitRemote.create(pkgName, props.accessToken, {
-                        description
-                    })
-                );
-            }
-
-            Promise.all(promises).then(() => {
-                done();
+        if (props.createRemote) {
+            await gitRemote.create(pkgName, props.accessToken, {
+                description
             });
-        });
+        }
     }
 
     writing() {
@@ -265,9 +249,7 @@ module.exports = class extends Generator {
         this.installDependencies({ bower : false });
 
         if (this.customDir) {
-            const relativePath = path.relative(
-                process.env.PWD || process.cwd(), this.customDir
-            );
+            const relativePath = path.relative(process.env.PWD || process.cwd(), this.customDir);
             this.log(`Go to your project: cd '${relativePath}'\n`);
         }
     }

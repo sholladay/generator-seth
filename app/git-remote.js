@@ -1,19 +1,7 @@
 'use strict';
 
-const { exec } = require('child_process');
 const ghGot = require('gh-got');
-
-const git = (command) => {
-    return new Promise((resolve, reject) => {
-        exec('git ' + command, (err) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve();
-        });
-    });
-};
+const git = require('./git');
 
 const setOrigin = (url) => {
     return git(`remote add origin "${url}"`)
@@ -42,7 +30,8 @@ const create = (name, token, option) => {
             // Make validation errors more friendly.
             if (err.response && err.response.body && err.response.body.errors) {
                 const alreadyExists = err.response.body.errors.some((x) => {
-                    return x.resource === 'Repository' && x.field === 'name' &&
+                    return x.resource === 'Repository' &&
+                        x.field === 'name' &&
                         x.message === 'name already exists on this account';
                 });
 
