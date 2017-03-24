@@ -122,9 +122,7 @@ module.exports = class extends Generator {
                 message : 'Do you need a CLI?',
                 type    : 'confirm',
                 default : Boolean(this.options.cli),
-                when    : () => {
-                    return typeof this.options.cli === 'undefined';
-                }
+                when    : typeof this.options.cli === 'undefined'
             },
             {
                 name    : 'username',
@@ -135,9 +133,7 @@ module.exports = class extends Generator {
                     return input.toLowerCase();
                 },
                 validate : nonEmpty('username'),
-                when     : () => {
-                    return !this.options.username;
-                }
+                when     : !this.options.username
             },
             {
                 name     : 'fullName',
@@ -145,9 +141,7 @@ module.exports = class extends Generator {
                 store    : true,
                 default  : fullname,
                 validate : nonEmpty('name'),
-                when     : () => {
-                    return !this.options.fullName;
-                }
+                when     : !this.options.fullName
             },
             {
                 name    : 'email',
@@ -159,9 +153,7 @@ module.exports = class extends Generator {
                         (input.includes('@') || 'You forgot the @ sign.') :
                         'An e-mail address is required.';
                 },
-                when : () => {
-                    return !this.options.email;
-                }
+                when : !this.options.email
             },
             {
                 name     : 'website',
@@ -169,18 +161,14 @@ module.exports = class extends Generator {
                 store    : true,
                 filter   : normalizeUrl,
                 validate : nonEmpty('website'),
-                when     : () => {
-                    return !this.options.website;
-                }
+                when     : !this.options.website
             },
             {
                 name    : 'createRemote',
                 message : 'Create remote repository?',
                 type    : 'confirm',
                 default : Boolean(this.options.createRemote),
-                when    : () => {
-                    return typeof this.options.createRemote === 'undefined';
-                }
+                when    : typeof this.options.createRemote === 'undefined'
             },
             {
                 name     : 'accessToken',
