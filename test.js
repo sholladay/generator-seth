@@ -24,7 +24,7 @@ test.beforeEach(async () => {
     generator = helpers.createGenerator('seth:app', ['../app'], null, { skipInstall : true });
 });
 
-test.serial('generates expected files', async () => {
+test.serial('generates expected files', async (t) => {
     mockPrompt();
 
     await promisify(generator.run.bind(generator))();
@@ -44,9 +44,11 @@ test.serial('generates expected files', async () => {
     ]);
 
     assert.noFile('cli.js');
+    // Hack around ava not detecting yeoman-assert.
+    t.true(true);
 });
 
-test.serial('CLI option', async () => {
+test.serial('CLI option', async (t) => {
     mockPrompt({ cli : true });
 
     await promisify(generator.run.bind(generator))();
@@ -55,9 +57,11 @@ test.serial('CLI option', async () => {
     assert.fileContent('package.json', /"bin":/);
     assert.fileContent('package.json', /"bin": "cli.js"/);
     assert.fileContent('package.json', /"meow"/);
+    // Hack around ava not detecting yeoman-assert.
+    t.true(true);
 });
 
-test.serial('prompts for description', async () => {
+test.serial('prompts for description', async (t) => {
     mockPrompt({
         description : 'awesome description'
     });
@@ -67,4 +71,6 @@ test.serial('prompts for description', async () => {
     assert.fileContent('.git/description', 'awesome description\n');
     assert.fileContent('package.json', '"description": "awesome description",\n');
     assert.fileContent('README.md', '> awesome description\n');
+    // Hack around ava not detecting yeoman-assert.
+    t.true(true);
 });
