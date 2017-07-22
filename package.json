@@ -20,7 +20,7 @@
         "email": "me@seth-holladay.com"
     },
     "engines": {
-        "node": ">=7.6"
+        "node": ">=8"
     },
     "license": "MPL-2.0",
     "files": [
@@ -45,7 +45,6 @@
     "devDependencies": {
         "ava": "^0.21.0",
         "eslint-config-tidy": "^0.5.0",
-        "pify": "^3.0.0",
         "xo": "^0.18.0",
         "yeoman-assert": "^3.0.0",
         "yeoman-test": "^1.6.0"

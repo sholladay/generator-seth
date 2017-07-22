@@ -1,17 +1,12 @@
 'use strict';
 
-const { exec } = require('child_process');
+const childProcess = require('child_process');
+const { promisify } = require('util');
+
+const exec = promisify(childProcess.exec);
 
 const git = (command) => {
-    return new Promise((resolve, reject) => {
-        exec('git ' + command, (err) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve();
-        });
-    });
+    return exec('git ' + command);
 };
 
 module.exports = git;
