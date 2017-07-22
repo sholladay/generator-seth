@@ -1,47 +1,47 @@
 {
-  "name": "<%= pkgName %>",
-  "version": "0.0.0",
-  "description": "<%= description %>",
-  "homepage": "<%= repoUrl %>",
-  "main": "index.js",
-  "author": {
-    "name": "<%= fullName %>",
-    "url": "<%= website %>",
-    "email": "<%= email %>"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:<%= username %>/<%= pkgName %>.git"
-  },
-  "bugs": {
-    "url": "<%= repoUrl %>/issues",
-    "email": "<%= email %>"
-  },
-  "engines": {
-    "node": ">=6"
-  },
-  "license": "MPL-2.0",<% if (cli) { %>
-  "bin": "cli.js",<% } %>
-  "files": [
-    "index.js"<% if (cli) { %>,
-    "cli.js"<% } %>
-  ],<% if (cli) { %>
-  "dependencies": {
-    "meow": "^3.7.0"
-  },<% } %>
-  "devDependencies": {
-    "ava": "^0.18.1",
-    "eslint-config-tidy": "^0.4.0",
-    "xo": "^0.18.0"
-  },
-  "keywords": [
-    <% if (cli) { %>"cli-app",
-    "cli"<% } %>
-  ],
-  "xo": {
-    "extend": "tidy"
-  }
+    "name": "<%= pkgName %>",
+    "version": "0.0.0",
+    "description": "<%= description %>",
+    "homepage": "<%= repoUrl %>",
+    "main": "index.js",
+    "author": {
+        "name": "<%= fullName %>",
+        "url": "<%= website %>",
+        "email": "<%= email %>"
+    },
+    "scripts": {
+        "test": "xo && ava"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:<%= username %>/<%= pkgName %>.git"
+    },
+    "bugs": {
+        "url": "<%= repoUrl %>/issues",
+        "email": "<%= email %>"
+    },
+    "engines": {
+        "node": ">=7.6"
+    },
+    "license": "MPL-2.0",<% if (cli) { %>
+    "bin": "cli.js",<% } %>
+    "files": [
+        "index.js"<% if (cli) { %>,
+        "cli.js"<% } %>
+    ],<% if (cli) { %>
+    "dependencies": {
+        "meow": "^3.7.0"
+    },<% } %>
+    "devDependencies": {
+        "ava": "^0.19.1",
+        "eslint-config-tidy": "^0.4.0",
+        "xo": "^0.18.0"
+    },
+    "keywords": [
+        <% if (cli) { %>"cli-app",
+        "cli"<% } %>
+    ],
+    "xo": {
+        "extend": "tidy"
+    }
 }
