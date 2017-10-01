@@ -53,10 +53,9 @@ test.serial('CLI option', async (t) => {
 
     await promisify(generator.run.bind(generator))();
 
-    assert.file('cli.js');
-    assert.fileContent('package.json', /"bin":/);
-    assert.fileContent('package.json', /"bin": "cli.js"/);
-    assert.fileContent('package.json', /"meow"/);
+    assert.fileContent('cli.js', /^#!\/usr\/bin\/env node/);
+    assert.fileContent('package.json', '"bin": "cli.js"');
+    assert.fileContent('package.json', '"meow": "');
     // Hack around ava not detecting yeoman-assert.
     t.true(true);
 });
@@ -68,7 +67,7 @@ test.serial('prompts for description', async (t) => {
 
     await promisify(generator.run.bind(generator))();
 
-    assert.fileContent('.git/description', 'awesome description\n');
+    assert.fileContent('.git/description', /^awesome description\n$/);
     assert.fileContent('package.json', '"description": "awesome description",\n');
     assert.fileContent('README.md', '> awesome description\n');
     // Hack around ava not detecting yeoman-assert.

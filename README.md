@@ -1,12 +1,16 @@
-# generator-seth [![Build status for generator-seth on Circle CI.](https://img.shields.io/circleci/project/sholladay/generator-seth/master.svg "Circle Build Status")](https://circleci.com/gh/sholladay/generator-seth "Generator Seth Builds")
+# generator-seth [![Build status for generator-seth](https://img.shields.io/circleci/project/sholladay/generator-seth/master.svg "Build Status")](https://circleci.com/gh/sholladay/generator-seth "Builds")
 
-> Set up your projects.
+> Set up your projects
 
 ## Why?
 
  - Repeatable, dependable project set up.
- - Does validation without being annoying.
- - Checks name availability without failing when offline.
+ - Carefully validates input without being annoying.
+ - Checks whether the project name is available on npm.
+ - Creates a repository on GitHub.
+ - Configures CI and runs tests on every commit.
+ - Sets a description on the repository, locally and remotely.
+ - Auto-detects whether files should be put in a new directory.
 
 ## Install
 
@@ -91,23 +95,23 @@ A [personal access token](https://help.github.com/articles/creating-an-access-to
 To reduce typing to a minimum, you should set up an alias in your dotfiles that provides common values for you on the command line.
 
 ```bash
-alias seth='yo seth --username="$(id -un)" --full-name="$(id -F)" --email='\''me@seth-holladay.com'\'' --website='\''http://seth-holladay.com'\'' --access-token='\''<my-access-token>'\';
+alias seth='yo seth --username="$(id -un)" --full-name="$(id -F)" --email='\''me@seth-holladay.com'\'' --website='\''https://seth-holladay.com'\'' --access-token='\''<my-access-token>'\';
 ```
 
 Now instead of invoking the generator as `yo seth`, you can use just `seth` and your favorite options will be applied.
 
 ## Contributing
 
-See our [contributing guidelines](https://github.com/sholladay/generator-seth/blob/master/CONTRIBUTING.md "The guidelines for participating in this project.") for more details.
+See our [contributing guidelines](https://github.com/sholladay/generator-seth/blob/master/CONTRIBUTING.md "Guidelines for participating in this project") for more details.
 
 1. [Fork it](https://github.com/sholladay/generator-seth/fork).
 2. Make a feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
-5. [Submit a pull request](https://github.com/sholladay/generator-seth/compare "Submit code to this project for review.").
+5. [Submit a pull request](https://github.com/sholladay/generator-seth/compare "Submit code to this project for review").
 
 ## License
 
-[MPL-2.0](https://github.com/sholladay/generator-seth/blob/master/LICENSE "The license for generator-seth.") © [Seth Holladay](http://seth-holladay.com "Author of generator-seth.")
+[MPL-2.0](https://github.com/sholladay/generator-seth/blob/master/LICENSE "License for generator-seth") © [Seth Holladay](https://seth-holladay.com "Author of generator-seth")
 
 Go make something, dang it.

@@ -24,10 +24,6 @@ const capitalize = (input) => {
     return input[0].toUpperCase() + input.substring(1);
 };
 
-const sentencify = (input) => {
-    return input && (capitalize(input) + (input.endsWith('.') ? '' : '.'));
-};
-
 const titleize = (input) => {
     return capitalize(input).replace(/-(.)/g, (match, letter) => {
         return ' ' + letter.toUpperCase();
@@ -116,7 +112,7 @@ module.exports = class extends Generator {
             {
                 name    : 'description',
                 message : 'How would you describe it?',
-                filter  : sentencify,
+                filter  : capitalize,
                 validate(input) {
                     return (input.trim().length > 5 && input.includes(' ')) ||
                         'Oh come on, be creative.';

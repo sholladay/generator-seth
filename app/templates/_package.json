@@ -21,7 +21,7 @@
         "email": "<%= email %>"
     },
     "engines": {
-        "node": ">=7.6"
+        "node": ">=8"
     },
     "license": "MPL-2.0",<% if (cli) { %>
     "bin": "cli.js",<% } %>
@@ -33,8 +33,8 @@
         "meow": "^3.7.0"
     },<% } %>
     "devDependencies": {
-        "ava": "^0.19.1",
-        "eslint-config-tidy": "^0.4.0",
+        "ava": "^0.22.0",
+        "eslint-config-tidy": "^0.5.0",
         "xo": "^0.18.0"
     },
     "keywords": [
