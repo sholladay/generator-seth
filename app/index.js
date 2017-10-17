@@ -270,8 +270,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(templates, this.destinationRoot(), this.props);
     }
 
-    install() {
-        this.installDependencies({ bower : false });
+    async install() {
+        await this.installDependencies({ bower : false });
 
         if (this.customDir) {
             const relativePath = path.relative(process.env.PWD || process.cwd(), this.customDir);
