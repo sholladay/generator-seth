@@ -7,16 +7,14 @@ import assert from 'yeoman-assert';
 let generator;
 
 const mockPrompt = (answer) => {
-    return helpers.mockPrompt(generator, Object.assign(
-        {
-            pkgName     : 'my-pkg',
-            description : 'my description',
-            username    : 'meee',
-            website     : 'example.com',
-            cli         : false
-        },
-        answer
-    ));
+    return helpers.mockPrompt(generator, {
+        pkgName     : 'my-pkg',
+        description : 'my description',
+        username    : 'meee',
+        website     : 'example.com',
+        cli         : false,
+        ...answer
+    });
 };
 
 test.beforeEach(async () => {

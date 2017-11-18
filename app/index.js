@@ -210,11 +210,13 @@ module.exports = class extends Generator {
             this.customDir = this.destinationRoot();
         }
 
-        this.props = Object.assign({}, this.options, answer, {
+        this.props = {
+            ...this.options,
+            ...answer,
             year      : new Date().getUTCFullYear(),
             jsPkgName : camelize(pkgName),
             pkgTitle  : titleize(pkgName)
-        });
+        };
         this.props.repoUrl = 'https://github.com/' + path.posix.join(
             this.props.username, pkgName
         );
