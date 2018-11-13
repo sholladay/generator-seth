@@ -102,7 +102,7 @@ module.exports = class extends Generator {
                         const isAvailable = await npmName(input);
                         return isAvailable || 'Name is already taken on npm.';
                     }
-                    catch (err) {
+                    catch (error) {
                         // Ignore errors because most likely it means
                         // we are simply offline.
                         return true;
@@ -221,7 +221,6 @@ module.exports = class extends Generator {
             this.props.username, pkgName
         );
     }
-
     async git() {
         const { props } = this;
         const { pkgName, description } = props;
@@ -241,17 +240,16 @@ module.exports = class extends Generator {
                     json : true
                 });
             }
-            catch (err) {
+            catch (error) {
                 // Circle CI always errors out here, probably having something to do with the fact
                 // that there are no commits in the repo yet. Unfortunately, no details are given,
                 // it just returns a 400 Bad Request. But it actually "works" regardless.
-                if (err.statusCode !== 400) {
-                    throw err;
+                if (error.statusCode !== 400) {
+                    throw error;
                 }
             }
         }
     }
-
     writing() {
         const templates = [this.sourceRoot()];
         if (!this.props.cli) {
@@ -271,7 +269,6 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(templates, this.destinationRoot(), this.props);
     }
-
     async install() {
         await this.installDependencies({ bower : false });
 
