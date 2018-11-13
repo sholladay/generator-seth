@@ -1,7 +1,7 @@
 {
     "name": "generator-seth",
     "version": "0.7.0",
-    "description": "Set up your projects",
+    "description": "Set up new Node.js projects",
     "homepage": "https://github.com/sholladay/generator-seth",
     "author": {
         "name": "Seth Holladay",
