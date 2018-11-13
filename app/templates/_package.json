@@ -30,12 +30,12 @@
         "cli.js"<% } %>
     ],<% if (cli) { %>
     "dependencies": {
-        "meow": "^3.7.0"
+        "meow": "^5.0.0"
     },<% } %>
     "devDependencies": {
-        "ava": "^0.23.0",
-        "eslint-config-tidy": "^0.5.0",
-        "xo": "^0.18.0"
+        "ava": "^1.0.0-rc.2",
+        "eslint-config-tidy": "^0.6.4",
+        "xo": "^0.23.0"
     },
     "keywords": [
         <% if (cli) { %>"cli-app",
