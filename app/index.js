@@ -160,7 +160,9 @@ module.exports = class extends Generator {
                 name     : 'website',
                 message  : 'What is your web URL?',
                 store    : true,
-                filter   : normalizeUrl,
+                filter(input) {
+                    return normalizeUrl(input, { defaultProtocol : 'https:' });
+                },
                 validate : nonEmpty('website'),
                 when     : !this.options.website
             },
