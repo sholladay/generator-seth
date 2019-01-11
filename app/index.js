@@ -24,7 +24,7 @@ const capitalize = (input) => {
 };
 
 const titleize = (input) => {
-    return capitalize(input).replace(/-(.)/g, (match, letter) => {
+    return capitalize(input).replace(/-(.)/gu, (match, letter) => {
         return ' ' + letter.toUpperCase();
     });
 };
@@ -84,7 +84,7 @@ module.exports = class extends Generator {
             {
                 name    : 'pkgName',
                 message : 'What shall we name your module?',
-                default : this.appname.replace(/\s/g, '-'),
+                default : this.appname.replace(/\s/gu, '-'),
                 filter  : slugify,
                 async validate(input) {
                     const validity = validatePkgName(input);
@@ -172,7 +172,6 @@ module.exports = class extends Generator {
                 name     : 'accessToken',
                 message  : 'Enter your access token:',
                 type     : 'password',
-                // TODO: Report to Yeoman, this ought to be encrypted.
                 store    : true,
                 validate : nonEmpty('access token'),
                 when     : (answer) => {
