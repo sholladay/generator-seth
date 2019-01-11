@@ -32,7 +32,6 @@
         "fullname": "^3.0.0",
         "gh-got": "^8.0.1",
         "git-description": "^0.1.0",
-        "got": "^9.3.2",
         "normalize-url": "^4.0.0",
         "npm-name": "^5.0.1",
         "underscore.string": "^3.3.4",

@@ -1,4 +1,4 @@
-# <%= pkgName %> [![Build status for <%= pkgTitle %>](https://img.shields.io/circleci/project/<%= username %>/<%= pkgName %>/master.svg "Build Status")](https://circleci.com/gh/<%= username %>/<%= pkgName %> "Builds")
+# <%= pkgName %> [![Build status for <%= pkgTitle %>](https://travis-ci.com/<%= username %>/<%= pkgName %>.svg?branch=master "Build Status")](https://travis-ci.com/<%= username %>/<%= pkgName %> "Builds")
 
 > <%= description %>
 

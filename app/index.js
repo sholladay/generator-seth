@@ -13,7 +13,6 @@ const normalizeUrl = require('normalize-url');
 const npmName = require('npm-name');
 const validatePkgName = require('validate-npm-package-name');
 const { slugify, camelize } = require('underscore.string');
-const got = require('got');
 const pkg = require('../package.json');
 const gitRemote = require('./git-remote');
 const git = require('./git');
@@ -76,10 +75,6 @@ module.exports = class extends Generator {
             desc : 'Create a GitHub repository'
         });
         this.option('accessToken', {
-            type : String,
-            desc : 'GitHub API token to create a repo'
-        });
-        this.option('circleToken', {
             type : String,
             desc : 'GitHub API token to create a repo'
         });
@@ -183,17 +178,6 @@ module.exports = class extends Generator {
                 when     : (answer) => {
                     return answer.createRemote && !this.options.accessToken;
                 }
-            },
-            {
-                name     : 'circleToken',
-                message  : 'Enter your Circle CI token:',
-                type     : 'password',
-                // TODO: Report to Yeoman, this ought to be encrypted.
-                store    : true,
-                validate : nonEmpty('Circle CI token'),
-                when     : (answer) => {
-                    return answer.createRemote && !this.options.circleToken;
-                }
             }
         ];
 
@@ -234,22 +218,7 @@ module.exports = class extends Generator {
         ]);
 
         if (props.createRemote) {
-            await gitRemote.create(pkgName, props.accessToken, {
-                description
-            });
-            try {
-                await got.post(`https://circleci.com/api/v1.1/project/github/${props.username}/${pkgName}/follow?circle-token=${props.circleToken}`, {
-                    json : true
-                });
-            }
-            catch (error) {
-                // Circle CI always errors out here, probably having something to do with the fact
-                // that there are no commits in the repo yet. Unfortunately, no details are given,
-                // it just returns a 400 Bad Request. But it actually "works" regardless.
-                if (error.statusCode !== 400) {
-                    throw error;
-                }
-            }
+            await gitRemote.create(pkgName, props.accessToken, { description });
         }
     }
     writing() {

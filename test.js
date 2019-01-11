@@ -35,7 +35,6 @@ test.serial('generates expected files', async (t) => {
         'CONTRIBUTING.md',
         'LICENSE',
         'README.md',
-        'circle.yml',
         'index.js',
         'package.json',
         'test.js'

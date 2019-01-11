@@ -1,8 +1,8 @@
-# generator-seth [![Build status for generator-seth](https://img.shields.io/circleci/project/sholladay/generator-seth/master.svg "Build Status")](https://circleci.com/gh/sholladay/generator-seth "Builds")
+# generator-seth [![Build status for generator-seth](https://travis-ci.com/sholladay/generator-seth.svg?branch=master "Build Status")](https://travis-ci.com/sholladay/generator-seth "Builds")
 
 > Set up new Node.js projects
 
-This [Yeoman](http://yeoman.io/) generator is here to help you scaffold your new app or library.
+This [Yeoman](https://yeoman.io) generator is here to help you scaffold your new app or library.
 
 ## Why?
 
