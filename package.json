@@ -29,7 +29,7 @@
     "dependencies": {
         "chalk": "^2.0.1",
         "first-name": "^0.1.0",
-        "fullname": "^3.0.0",
+        "fullname": "^4.0.0",
         "gh-got": "^8.0.1",
         "git-description": "^0.1.0",
         "normalize-url": "^4.0.0",
