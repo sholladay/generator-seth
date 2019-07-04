@@ -1,84 +1,88 @@
 {
-    "name": "generator-seth",
-    "version": "1.0.0",
-    "description": "Set up new Node.js projects",
-    "homepage": "https://github.com/sholladay/generator-seth",
-    "author": {
-        "name": "Seth Holladay",
-        "url": "https://seth-holladay.com",
-        "email": "me@seth-holladay.com"
-    },
-    "scripts": {
-        "test": "xo && ava"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:sholladay/generator-seth.git"
-    },
-    "bugs": {
-        "url": "https://github.com/sholladay/generator-seth/issues",
-        "email": "me@seth-holladay.com"
-    },
-    "engines": {
-        "node": ">=8.3"
-    },
-    "license": "MPL-2.0",
-    "files": [
-        "app"
-    ],
-    "dependencies": {
-        "chalk": "^2.0.1",
-        "first-name": "^0.1.0",
-        "fullname": "^3.0.0",
-        "gh-got": "^8.0.1",
-        "git-description": "^0.1.0",
-        "normalize-url": "^4.0.0",
-        "npm-name": "^5.0.1",
-        "underscore.string": "^3.3.4",
-        "update-notifier": "^2.2.0",
-        "username": "^4.0.0",
-        "validate-npm-package-name": "^3.0.0",
-        "yeoman-generator": "^3.2.0",
-        "yosay": "^2.0.0"
-    },
-    "devDependencies": {
-        "ava": "^1.0.1",
-        "eslint-config-tidy": "^0.7.0",
-        "xo": "^0.24.0",
-        "yeoman-assert": "^3.0.0",
-        "yeoman-test": "^1.6.0"
-    },
-    "keywords": [
-        "module",
-        "modules",
-        "package",
-        "packages",
-        "tool",
-        "tools",
-        "tooling",
-        "project",
-        "projects",
-        "template",
-        "boilerplate",
-        "scaffold",
-        "scaffolding",
-        "generator",
-        "yeoman-generator",
-        "init",
-        "setup",
-        "set up",
-        "plugin",
-        "plugins",
-        "node",
-        "node_module",
-        "node-module"
-    ],
-    "xo": {
-        "extend": "tidy",
-        "ignore": [
-            "app/templates/_index.js",
-            "app/templates/_test.js",
-            "app/templates/_cli.js"
-        ]
-    }
+  "name": "generator-seth",
+  "version": "1.0.0",
+  "description": "Set up new Node.js projects",
+  "homepage": "https://github.com/sholladay/generator-seth",
+  "author": {
+    "name": "Seth Holladay",
+    "url": "https://seth-holladay.com",
+    "email": "me@seth-holladay.com"
+  },
+  "scripts": {
+    "test": "xo && ava",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sholladay/generator-seth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sholladay/generator-seth/issues",
+    "email": "me@seth-holladay.com"
+  },
+  "engines": {
+    "node": ">=8.3"
+  },
+  "license": "MPL-2.0",
+  "files": [
+    "app"
+  ],
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "first-name": "^0.1.0",
+    "fullname": "^3.0.0",
+    "gh-got": "^8.0.1",
+    "git-description": "^0.1.0",
+    "normalize-url": "^4.0.0",
+    "npm-name": "^5.0.1",
+    "underscore.string": "^3.3.4",
+    "update-notifier": "^2.2.0",
+    "username": "^4.0.0",
+    "validate-npm-package-name": "^3.0.0",
+    "yeoman-generator": "^3.2.0",
+    "yosay": "^2.0.0",
+    "snyk": "^1.189.0"
+  },
+  "devDependencies": {
+    "ava": "^1.0.1",
+    "eslint-config-tidy": "^0.7.0",
+    "xo": "^0.24.0",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
+  },
+  "keywords": [
+    "module",
+    "modules",
+    "package",
+    "packages",
+    "tool",
+    "tools",
+    "tooling",
+    "project",
+    "projects",
+    "template",
+    "boilerplate",
+    "scaffold",
+    "scaffolding",
+    "generator",
+    "yeoman-generator",
+    "init",
+    "setup",
+    "set up",
+    "plugin",
+    "plugins",
+    "node",
+    "node_module",
+    "node-module"
+  ],
+  "xo": {
+    "extend": "tidy",
+    "ignore": [
+      "app/templates/_index.js",
+      "app/templates/_test.js",
+      "app/templates/_cli.js"
+    ]
+  },
+  "snyk": true
 }
