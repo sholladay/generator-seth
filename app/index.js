@@ -24,8 +24,8 @@ const capitalize = (input) => {
 };
 
 const titleize = (input) => {
-    return capitalize(input).replace(/-(.)/gu, (match, letter) => {
-        return ' ' + letter.toUpperCase();
+    return capitalize(input).replace(/-./gu, (match) => {
+        return ' ' + match[1].toUpperCase();
     });
 };
 
