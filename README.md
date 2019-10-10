@@ -1,4 +1,4 @@
-# generator-seth [![Build status for generator-seth](https://travis-ci.com/sholladay/generator-seth.svg?branch=master "Build Status")](https://travis-ci.com/sholladay/generator-seth "Builds")
+# generator-seth [![Build status for generator-seth](https://travis-ci.com/sholladay/generator-seth.svg "Build Status")](https://travis-ci.com/sholladay/generator-seth "Builds")
 
 > Set up new Node.js projects
 
