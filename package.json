@@ -20,33 +20,33 @@
         "email": "me@seth-holladay.com"
     },
     "engines": {
-        "node": ">=8.3"
+        "node": ">=10"
     },
     "license": "MPL-2.0",
     "files": [
         "app"
     ],
     "dependencies": {
-        "chalk": "^2.0.1",
+        "chalk": "^3.0.0",
         "first-name": "^0.1.0",
-        "fullname": "^3.0.0",
+        "fullname": "^4.0.1",
         "gh-got": "^8.0.1",
         "git-description": "^0.1.0",
         "normalize-url": "^4.0.0",
         "npm-name": "^5.0.1",
         "underscore.string": "^3.3.4",
-        "update-notifier": "^3.0.1",
-        "username": "^4.0.0",
+        "update-notifier": "^4.0.0",
+        "username": "^5.1.0",
         "validate-npm-package-name": "^3.0.0",
-        "yeoman-generator": "^3.2.0",
+        "yeoman-generator": "^4.2.0",
         "yosay": "^2.0.0"
     },
     "devDependencies": {
         "ava": "^2.4.0",
-        "eslint-config-tidy": "^0.8.1",
-        "xo": "^0.24.0",
+        "eslint-config-tidy": "^0.10.0",
+        "xo": "^0.25.3",
         "yeoman-assert": "^3.0.0",
-        "yeoman-test": "^1.6.0"
+        "yeoman-test": "^2.0.0"
     },
     "keywords": [
         "module",

@@ -20,7 +20,7 @@ const git = require('./git');
 require('update-notifier')({ pkg }).notify();
 
 const capitalize = (input) => {
-    return input[0].toUpperCase() + input.substring(1);
+    return input[0].toUpperCase() + input.slice(1);
 };
 
 const titleize = (input) => {
@@ -97,7 +97,7 @@ module.exports = class extends Generator {
                         const isAvailable = await npmName(input);
                         return isAvailable || 'Name is already taken on npm.';
                     }
-                    catch (error) {
+                    catch {
                         // Ignore errors because most likely it means
                         // we are simply offline.
                         return true;
@@ -152,9 +152,9 @@ module.exports = class extends Generator {
                 when : !this.options.email
             },
             {
-                name     : 'website',
-                message  : 'What is your web URL?',
-                store    : true,
+                name    : 'website',
+                message : 'What is your web URL?',
+                store   : true,
                 filter(input) {
                     return normalizeUrl(input, { defaultProtocol : 'https:' });
                 },

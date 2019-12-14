@@ -21,7 +21,7 @@
         "email": "<%= email %>"
     },
     "engines": {
-        "node": ">=8"
+        "node": ">=10"
     },
     "license": "MPL-2.0",<% if (cli) { %>
     "bin": "cli.js",<% } %>
@@ -30,16 +30,16 @@
         "cli.js"<% } %>
     ],<% if (cli) { %>
     "dependencies": {
-        "meow": "^5.0.0"
+        "meow": "^6.0.0"
     },<% } %>
     "devDependencies": {
-        "ava": "^1.0.1",
-        "eslint-config-tidy": "^0.7.0",
-        "xo": "^0.23.0"
+        "ava": "^2.4.0",
+        "eslint-config-tidy": "^0.10.0",
+        "xo": "^0.25.3"
     },
     "keywords": [
-        <% if (cli) { %>"cli-app",
-        "cli"<% } %>
+        <% if (cli) { %>"cli",
+        "cli-app"<% } %>
     ],
     "xo": {
         "extend": "tidy"

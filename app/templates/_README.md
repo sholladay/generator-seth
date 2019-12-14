@@ -11,7 +11,7 @@
 ## Install
 
 ```sh
-npm install <%= pkgName %> --save
+npm install <%= pkgName %>
 ```
 
 ## Usage
