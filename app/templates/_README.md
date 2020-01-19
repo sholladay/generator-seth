@@ -31,7 +31,7 @@ It throws an error and is not ready yet.
 #### input
 
 Type: `string`<br>
-Example: `foo`
+Example: `'foo'`
 
 ## Contributing
 

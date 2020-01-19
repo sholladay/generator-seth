@@ -56,14 +56,14 @@ Whether to generate a `cli.js` and configure `package.json` as appropriate for a
 ### username
 
 Type: `string`<br>
-Example: `sholladay`
+Example: `'sholladay'`
 
 The author's handle / account name.
 
 ### fullName
 
 Type: `string`<br>
-Example: `Seth Holladay`
+Example: `'Seth Holladay'`
 
 The author's full legal name.
 
