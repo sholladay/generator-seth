@@ -4,6 +4,7 @@
     "description": "<%= description %>",
     "homepage": "<%= repoUrl %>",
     "main": "index.js",
+    "type": "module",
     "author": {
         "name": "<%= fullName %>",
         "url": "<%= website %>",
@@ -21,7 +22,7 @@
         "email": "<%= email %>"
     },
     "engines": {
-        "node": ">=10"
+        "node": ">=14"
     },
     "license": "MPL-2.0",<% if (cli) { %>
     "bin": "cli.js",<% } %>
@@ -30,12 +31,12 @@
         "cli.js"<% } %>
     ],<% if (cli) { %>
     "dependencies": {
-        "meow": "^6.0.0"
+        "meow": "^10.1.1"
     },<% } %>
     "devDependencies": {
-        "ava": "^2.4.0",
-        "eslint-config-tidy": "^0.10.0",
-        "xo": "^0.25.3"
+        "ava": "^3.15.0",
+        "eslint-config-tidy": "^0.11.0",
+        "xo": "^0.45.0"
     },
     "keywords": [
         <% if (cli) { %>"cli",

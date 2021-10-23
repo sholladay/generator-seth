@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-'use strict';
-
-const meow = require('meow');
-const <%= jsPkgName %> = require('.');
+import meow from 'meow';
+import <%= jsPkgName %> from './index.js';
 
 const cli = meow(`
     Usage

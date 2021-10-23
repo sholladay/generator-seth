@@ -19,7 +19,7 @@ npm install <%= pkgName %>
 Get it into your program.
 
 ```js
-const <%= jsPkgName %> = require('<%= pkgName %>');
+import <%= jsPkgName %> from '<%= pkgName %>';
 ```
 
 ## API
