@@ -1,5 +1,5 @@
 # Standardized configuration for your text editor.
-# See: http://EditorConfig.org
+# See: https://editorconfig.org
 
 # This is the default for the whole project.
 root = true
